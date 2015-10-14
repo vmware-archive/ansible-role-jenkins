@@ -1,0 +1,16 @@
+---
+# apache port the exposes jenkins
+jenkins_public_port: "80"
+
+# jenkins image name on DockerHub
+jenkins_docker_image: openedge/jenkins
+
+# Path on target machine to mount as Jenkins' home
+jenkins_home_path: /jenkins
+
+# Coming soon...
+#jenkins_auth_type: "ldap"
+#jenkins_ldap_server: "{{ inventory_hostname }}"
+#jenkins_organization: "Cloud Builders"
+#jenkins_smtp_server: localhost
+# ...

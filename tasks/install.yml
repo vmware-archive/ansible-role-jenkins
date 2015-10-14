@@ -1,0 +1,19 @@
+---
+- name: Ensure Jenkins Home dir exists with correct ownership
+  file: path="{{jenkins_home_path}}" owner="{{ansible_ssh_user}}" state=directory
+
+- name: Docker requires docker-py
+  pip: name=docker-py
+
+
+- name: Jenkins Container
+  docker:
+    name: jenkins
+    image: openedge/jenkins
+    state: started
+    ports:
+    - "8080:8080"
+    volumes:
+    - "{{jenkins_home_path}}:/var/jenkins_home"
+    - "/var/run/docker.sock:/var/run/docker.sock"
+    - "$(which docker):/usr/bin/docker"

@@ -1,0 +1,6 @@
+---
+- include: install.yml
+#- include: basicauth.yml
+#  when: gerrit_auth_type == "HTTP"
+#- include: ldapauth.yml
+#  when: gerrit_auth_type == "ldap"
