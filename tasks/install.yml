@@ -23,7 +23,7 @@
 
 - name: Jenkins Container
   docker:
-    name: jenkins
+    name: "{{jenkins_container_name}}"
     image: openedge/jenkins
     state: started
     ports:

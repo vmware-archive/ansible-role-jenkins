@@ -21,7 +21,7 @@ jenkins_public_port: "80"
 jenkins_docker_image: openedge/jenkins
 
 # Path on target machine to mount as Jenkins' home
-jenkins_home_path: /jenkins
+jenkins_home_path: "/home/{{ansible_ssh_user}}/jenkins"
 
 # Coming soon...
 #jenkins_auth_type: "ldap"
