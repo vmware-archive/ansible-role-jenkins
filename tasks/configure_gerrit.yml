@@ -14,21 +14,9 @@
 #  limitations under the License.
 #
 ---
-- name: Ensure Jenkins Home dir exists with correct ownership
-  file: path="{{jenkins_home_path}}" owner="{{ansible_ssh_user}}" state=directory
+- name: configure gerrit-trigger
+  template:
+    src:   gerrit-trigger.xml.j2
+    dest:  "{{ jenkins_home_path }}/gerrit-trigger.xml"
 
-- name: Docker requires docker-py
-  pip: name=docker-py
 
-
-- name: Jenkins Container
-  docker:
-    name: "{{jenkins_container_name}}"
-    image: openedge/jenkins
-    state: started
-    ports:
-    - "8080:8080"
-    volumes:
-    - "{{jenkins_home_path}}:/var/jenkins_home"
-    - "/var/run/docker.sock:/var/run/docker.sock"
-    - "$(which docker):/usr/bin/docker"

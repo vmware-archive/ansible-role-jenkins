@@ -14,4 +14,8 @@
 #  limitations under the License.
 #
 ---
+
+- include: configure_gerrit.yml
+  when: jenkins_gerrit_server_fqdn != ""
+
 - include: install.yml
