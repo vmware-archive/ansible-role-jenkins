@@ -20,15 +20,25 @@
 - name: Docker requires docker-py
   pip: name=docker-py
 
-
 - name: Jenkins Container
   docker:
     name: "{{jenkins_container_name}}"
     image: openedge/jenkins
-    state: started
+    state: reloaded
     ports:
     - "8080:8080"
     volumes:
     - "{{jenkins_home_path}}:/var/jenkins_home"
     - "/var/run/docker.sock:/var/run/docker.sock"
     - "$(which docker):/usr/bin/docker"
+
+- name: specify additional plugin scm-api
+  lineinfile: dest={{jenkins_home_path}}/plugins.txt line="scm-api" create="yes"
+
+- name: install additional plugins
+  sudo: yes
+  command: "docker exec -t {{jenkins_container_name}} /usr/local/bin/plugins.sh /var/jenkins_home/plugins.txt"
+
+
+
+

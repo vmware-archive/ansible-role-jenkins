@@ -1,0 +1,84 @@
+<project>
+    <actions/>
+    <description/>
+    <keepDependencies>false</keepDependencies>
+    <properties/>
+    <scm class="hudson.scm.NullSCM"/>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers>
+        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger plugin="gerrit-trigger@2.14.0">
+            <spec/>
+            <gerritProjects>
+                <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+                    <compareType>REG_EXP</compareType>
+                    <pattern>ansible\-role\-.*</pattern>
+                    <branches>
+                        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+                            <compareType>ANT</compareType>
+                            <pattern>**</pattern>
+                        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+                    </branches>
+                </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+                <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+                    <compareType>PLAIN</compareType>
+                    <pattern>ansible-playbooks-supervio</pattern>
+                    <branches>
+                        <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+                            <compareType>ANT</compareType>
+                            <pattern>**</pattern>
+                        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+                    </branches>
+                </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+            </gerritProjects>
+            <skipVote>
+                <onSuccessful>false</onSuccessful>
+                <onFailed>false</onFailed>
+                <onUnstable>false</onUnstable>
+                <onNotBuilt>false</onNotBuilt>
+            </skipVote>
+            <silentMode>false</silentMode>
+            <notificationLevel/>
+            <silentStartMode>false</silentStartMode>
+            <escapeQuotes>true</escapeQuotes>
+            <noNameAndEmailParameters>false</noNameAndEmailParameters>
+            <dependencyJobsNames/>
+            <readableMessage>false</readableMessage>
+            <buildStartMessage/>
+            <buildFailureMessage/>
+            <buildSuccessfulMessage/>
+            <buildUnstableMessage/>
+            <buildNotBuiltMessage/>
+            <buildUnsuccessfulFilepath/>
+            <customUrl/>
+            <serverName>Cloudbuilders</serverName>
+            <triggerOnEvents>
+                <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent>
+                    <excludeDrafts>false</excludeDrafts>
+                    <excludeTrivialRebase>false</excludeTrivialRebase>
+                    <excludeNoCodeChange>false</excludeNoCodeChange>
+                </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent>
+            </triggerOnEvents>
+            <dynamicTriggerConfiguration>false</dynamicTriggerConfiguration>
+            <triggerConfigURL/>
+            <triggerInformationAction/>
+        </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+    </triggers>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <hudson.tasks.Shell>
+            <command>
+rm -rf *
+curl https://storage.googleapis.com/git-repo-downloads/repo > $WORKSPACE/repo
+chmod +x repo
+$WORKSPACE/repo init -u http://{{ jenkins_gerrit_server_fqdn }}:8080/supervio -b master -g supervio
+perl -pi -e "s/gerrit.cloudbuilders.vmware.local/{{ jenkins_gerrit_server_fqdn }}/" $WORKSPACE/.repo/manifests/default.xml
+$WORKSPACE/repo sync
+            </command>
+        </hudson.tasks.Shell>
+    </builders>
+    <publishers/>
+    <buildWrappers/>
+</project>

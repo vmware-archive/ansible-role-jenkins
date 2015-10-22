@@ -15,8 +15,13 @@
 #
 ---
 
-- include: configure_gerrit.yml
-  when: jenkins_gerrit_server_fqdn != ""
+- name: Create chaparone sanity test project directory
+  sudo: no
+  file: path="{{ jenkins_home_path }}/jobs/Chaparone_Sanity/" state="directory"
 
-- include: chaperone_projects.yml
-- include: install.yml
+- name: Set up chaparone sanity test project
+  sudo: no
+  template:
+    src: chaparone_sanity.config.xml.j2
+    dest: "{{ jenkins_home_path }}/jobs/Chaparone_Sanity/config.xml"
+    force: "yes"
