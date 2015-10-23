@@ -70,6 +70,12 @@
     <builders>
         <hudson.tasks.Shell>
             <command>
+if [ -n "$GERRIT_CHANGE_URL" ]; then
+	SLACK_MSG="\"Change $GERRIT_CHANGE_URL detected, Jenkins build commencing at $BUILD_URL\""
+    SLACK_PAYLOAD="'payload={\"channel\": \"#openedge\", \"username\": \"webhookbot\", \"text\": $SLACK_MSG, \"icon_emoji\": \":jenkins:\"}'"
+	curl -X POST --data-urlencode $SLACK_PAYLOAD https://hooks.slack.com/services/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    
+fi
+
 rm -rf *
 curl https://storage.googleapis.com/git-repo-downloads/repo > $WORKSPACE/repo
 chmod +x repo
