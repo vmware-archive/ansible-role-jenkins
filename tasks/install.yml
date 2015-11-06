@@ -20,6 +20,12 @@
 - name: Docker requires docker-py
   pip: name=docker-py
 
+- name: Set jenkins.model.JenkinsLocationConfiguration.xml
+  template:
+    src: jenkins.model.JenkinsLocationConfiguration.xml.j2
+    dest: "{{ jenkins_home_path }}/jenkins.model.JenkinsLocationConfiguration.xml"
+    force: "yes"
+
 - name: Jenkins Container
   docker:
     name: "{{jenkins_container_name}}"
