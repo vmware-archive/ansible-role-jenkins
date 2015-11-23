@@ -25,6 +25,8 @@ jenkins_home_path: "/home/{{ansible_ssh_user}}/jenkins"
 jenkins_gerrit_ssh_port: "29418"
 jenkins_gerrit_username: "jenkins"
 
+jenkins_asset_cache_path: "{{jenkins_home_path}}/asset_cache"
+
 # Coming soon...
 #jenkins_auth_type: "ldap"
 #jenkins_ldap_server: "{{ inventory_hostname }}"

@@ -17,6 +17,9 @@
 - name: Ensure Jenkins Home dir exists with correct ownership
   file: path="{{jenkins_home_path}}" owner="{{ansible_ssh_user}}" state=directory
 
+- name: Ensure assets_cache dir exists on Jenkins host for iso and ovf file caches
+  file: path="{{jenkins_asset_cache_path}}" owner="{{ansible_ssh_user}}" state=directory
+
 - name: Docker requires docker-py
   pip: name=docker-py
 
