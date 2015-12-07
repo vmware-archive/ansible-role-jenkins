@@ -80,7 +80,7 @@ rm -rf *
 curl https://storage.googleapis.com/git-repo-downloads/repo > $WORKSPACE/repo
 chmod +x repo
 $WORKSPACE/repo init -u http://{{ jenkins_gerrit_server_fqdn }}:8080/supervio -b master -g supervio
-perl -pi -e "s/gerrit.cloudbuilders.vmware.local/{{ jenkins_gerrit_server_fqdn }}/" $WORKSPACE/.repo/manifests/default.xml
+perl -pi -e "s/gerrit.eng.vmware.com/{{ jenkins_gerrit_server_fqdn }}/" $WORKSPACE/.repo/manifests/default.xml
 $WORKSPACE/repo sync
             </command>
         </hudson.tasks.Shell>
