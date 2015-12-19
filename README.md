@@ -1,15 +1,18 @@
-jenkins
-===============
+# ansible-role-jenkins
 
-This roles installs the Jenkins LTS server, running in a Docker container on the target machine.
+This roles installs the Jenkins LTS server, running in a Docker container on
+the target machine.
 
-Requirements
-------------
+## Requirements
 
-This role requires Ansible 1.4 or higher
+This role requires Ansible 1.4 or higher.
 
-Role Variables
---------------
+## Dependencies
+
+- docker
+- pip
+
+## Role Variables
 
 The variables that can be passed to this role and a brief description about
 them are as follows with defaults shown:
@@ -22,21 +25,16 @@ jenkins_docker_image: openedge/jenkins
 jenkins_home_path: /jenkins
 ```
 
-Examples
---------
+## Examples
 
+```yaml
 - hosts: somehost
   sudo: yes
   remote_user: someuser
 
   roles:
     - jenkins
-
-Dependencies
-------------
-
-docker
-pip
+```
 
 License and Copyright
 -----------------------
